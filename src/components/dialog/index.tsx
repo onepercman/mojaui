@@ -1,8 +1,9 @@
-import { Button } from "@/components"
+import { Button, ButtonProps } from "@/components"
 import { useVariants } from "@/providers/variants-provider"
 import { ForwardedRefComponent } from "@/types"
 import * as Ark from "@ark-ui/react"
 import React from "react"
+import ReactDOM from "react-dom/client"
 import { LuX } from "react-icons/lu"
 import { DialogProps } from "./dialog"
 
@@ -11,6 +12,8 @@ export interface Dialog extends ForwardedRefComponent {
     props: DialogProps,
     ref: React.ForwardedRef<HTMLDivElement>,
   ): React.ReactElement | null
+  open: typeof openDialog
+  confirm: typeof openConfirmDialog
 }
 
 function _constructor(
@@ -33,6 +36,7 @@ export const Dialog = _constructor(function (
     placement,
     className,
     classNames,
+    closeTrigger = true,
     ...props
   },
   ref,
@@ -42,7 +46,9 @@ export const Dialog = _constructor(function (
 
   return (
     <Ark.Dialog.Root {...props}>
-      <Ark.Dialog.Trigger asChild>{trigger}</Ark.Dialog.Trigger>
+      {trigger ? (
+        <Ark.Dialog.Trigger asChild>{trigger}</Ark.Dialog.Trigger>
+      ) : null}
       <Ark.Portal>
         <Ark.Dialog.Backdrop
           className={classes.backdrop({ class: classNames?.backdrop })}
@@ -55,19 +61,27 @@ export const Dialog = _constructor(function (
             ref={ref}
             className={classes.base({ class: classNames?.base })}
           >
-            <Ark.Dialog.Title
-              className={classes.title({ class: classNames?.title })}
-            >
-              Dialog Title
-            </Ark.Dialog.Title>
-            <Ark.Dialog.CloseTrigger asChild>
-              <Button
-                size="xs"
-                shape="circle"
-                leftIcon={<LuX />}
-                className={classes.close({ class: classNames?.close })}
-              />
-            </Ark.Dialog.CloseTrigger>
+            {title ? (
+              <Ark.Dialog.Title
+                className={classes.title({ class: classNames?.title })}
+              >
+                {title}
+              </Ark.Dialog.Title>
+            ) : null}
+            {closeTrigger ? (
+              <Ark.Dialog.CloseTrigger asChild>
+                {typeof closeTrigger === "boolean" ? (
+                  <Button
+                    size="xs"
+                    shape="circle"
+                    leftIcon={<LuX />}
+                    className={classes.close({ class: classNames?.close })}
+                  />
+                ) : (
+                  closeTrigger
+                )}
+              </Ark.Dialog.CloseTrigger>
+            ) : null}
             {typeof children === "function" ? (
               <Ark.Dialog.Context>{children}</Ark.Dialog.Context>
             ) : (
@@ -79,6 +93,92 @@ export const Dialog = _constructor(function (
     </Ark.Dialog.Root>
   )
 })
+
+function openDialog({ children, onOpenChange, ...props }: DialogProps): {
+  close(): void
+} {
+  const container = document.createDocumentFragment()
+
+  const root = ReactDOM.createRoot(container)
+
+  function close() {
+    root.render(
+      <Dialog open={false} unmountOnExit {...props}>
+        {children}
+      </Dialog>,
+    )
+  }
+
+  root.render(
+    <Dialog
+      open={true}
+      onOpenChange={function (details) {
+        onOpenChange && onOpenChange(details)
+        close()
+      }}
+      {...props}
+    >
+      {children}
+    </Dialog>,
+  )
+
+  return {
+    close,
+  }
+}
+
+async function openConfirmDialog({
+  question,
+  confirmProps,
+  cancelProps,
+  ...props
+}: DialogProps & {
+  question?: React.ReactNode
+  confirmProps?: ButtonProps
+  cancelProps?: ButtonProps
+}) {
+  return new Promise(function (resolve) {
+    openDialog({
+      onOpenChange({ open }) {
+        if (!open) {
+          resolve(false)
+        }
+      },
+      children: ({ setOpen }) => (
+        <div className="space-y-4">
+          <div className="text-low text-sm">{question}</div>
+          <div className="flex items-center justify-end gap-2">
+            <Button
+              onClick={function () {
+                setOpen(false)
+                resolve(false)
+              }}
+              size="sm"
+              {...cancelProps}
+            >
+              {cancelProps?.children || "Cancel"}
+            </Button>
+            <Button
+              onClick={function () {
+                resolve(true)
+                setOpen(false)
+              }}
+              size="sm"
+              color="primary"
+              {...confirmProps}
+            >
+              {confirmProps?.children || "Confirm"}
+            </Button>
+          </div>
+        </div>
+      ),
+      ...props,
+    })
+  })
+}
+
+Dialog.open = openDialog
+Dialog.confirm = openConfirmDialog
 
 Dialog.displayName = "Dialog"
 

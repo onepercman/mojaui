@@ -1,10 +1,11 @@
 import { SlotsClasses } from "@/types"
 import * as Ark from "@ark-ui/react"
+import { ReactNode } from "react"
 import { VariantProps, tv } from "tailwind-variants"
 
 export const dialog = tv({
   base: [
-    "bg-component border border-line shadow p-4 rounded relative w-full space-y-4 h-fit",
+    "bg-component border border-line shadow p-4 rounded relative w-full h-fit",
     "data-[state=open]:animate-in",
     "data-[state=open]:fade-in",
     "data-[state=closed]:animate-out",
@@ -19,8 +20,8 @@ export const dialog = tv({
       "data-[state=closed]:fade-out",
     ],
     positioner: "flex fixed inset-0 p-4",
-    title: "text-sm font-medium",
-    close: "absolute top-0 right-4",
+    title: "text-sm font-medium pb-4",
+    close: "absolute top-3 right-4",
     description: "",
   },
   variants: {
@@ -59,4 +60,5 @@ export interface DialogProps
   title?: React.ReactNode
   children?: React.ReactNode | Ark.DialogContextProps["children"]
   className?: string
+  closeTrigger?: boolean | ReactNode
 }

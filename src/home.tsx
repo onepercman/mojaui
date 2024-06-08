@@ -7,13 +7,10 @@ export default function () {
 
   return (
     <div className="p-4">
-      <div>
-        <Button>Button</Button>
-      </div>
-
       {/* Theme */}
       <Button
         leftIcon={<LuMoon />}
+        shape="circle"
         className="fixed bottom-4 right-4"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       />

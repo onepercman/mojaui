@@ -2,7 +2,7 @@
   "name": "mojaui",
   "private": false,
   "author": "onepercman",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "files": [
     "dist"
