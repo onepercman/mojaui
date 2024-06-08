@@ -149,23 +149,37 @@ async function openConfirmDialog({
           <div className="text-low text-sm">{question}</div>
           <div className="flex items-center justify-end gap-2">
             <Button
-              onClick={function () {
+              size="sm"
+              {...cancelProps}
+              onClick={async function (e) {
+                if (
+                  cancelProps?.onClick?.constructor.name === "AsyncFunction"
+                ) {
+                  await cancelProps?.onClick(e)
+                } else if (cancelProps?.onClick) {
+                  cancelProps?.onClick(e)
+                }
                 setOpen(false)
                 resolve(false)
               }}
-              size="sm"
-              {...cancelProps}
             >
               {cancelProps?.children || "Cancel"}
             </Button>
             <Button
-              onClick={function () {
-                resolve(true)
-                setOpen(false)
-              }}
               size="sm"
               color="primary"
               {...confirmProps}
+              onClick={async function (e) {
+                if (
+                  confirmProps?.onClick?.constructor.name === "AsyncFunction"
+                ) {
+                  await confirmProps?.onClick(e)
+                } else if (confirmProps?.onClick) {
+                  confirmProps?.onClick(e)
+                }
+                resolve(true)
+                setOpen(false)
+              }}
             >
               {confirmProps?.children || "Confirm"}
             </Button>
