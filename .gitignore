@@ -45,3 +45,5 @@ yarn-error.log*
 *.sw?
 
 
+
+*storybook.log

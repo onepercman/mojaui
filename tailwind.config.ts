@@ -48,6 +48,22 @@ const config: Config = {
     tailwindAnimate,
     tailwindScrollbar({ nocompatible: true }),
     schemes({
+      global: {
+        background: colors.gray[950],
+        foreground: colors.white,
+        primary: colorize(colors.amber),
+        secondary: colors.gray[400],
+        muted: colors.gray[700],
+        accent: colorize(colors.cyan),
+        default: colors.gray[800],
+        component: colors.gray[900],
+        invert: colors.black,
+        line: colors.gray[700],
+        info: colorize(colors.sky),
+        success: colorize(colors.green),
+        warning: colorize(colors.yellow),
+        error: colorize(colors.red),
+      },
       schemes: {
         light: {
           background: colors.white,

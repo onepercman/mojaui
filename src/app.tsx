@@ -5,7 +5,7 @@ import "./styles/styles.scss"
 
 export default function App() {
   return (
-    <ThemeProvider defaultTheme="dark">
+    <ThemeProvider>
       <VariantsProvider>
         <Home />
       </VariantsProvider>
