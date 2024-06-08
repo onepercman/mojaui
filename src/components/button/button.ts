@@ -4,7 +4,8 @@ export const button = tv({
   base: [
     "inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap",
     "border-transparent ring ring-transparent transition-all cursor-pointer border-2 outline-none",
-    "active:brightness-75",
+    "hover:brightness-90",
+    "active:scale-105",
   ],
   variants: {
     size: {
@@ -17,13 +18,16 @@ export const button = tv({
       default: "border-transparent",
       outlined: "border-2",
       ghost: "border-0 bg-transparent",
+      light: "border-0",
     },
     color: {
       default: "",
       primary: "",
-      error: "",
+      accent: "",
+      info: "",
       success: "",
       warning: "",
+      error: "",
     },
     shape: {
       normal: "rounded",
@@ -36,10 +40,11 @@ export const button = tv({
     },
   },
   compoundVariants: [
+    // default
     {
       variant: "default",
       color: "default",
-      class: ["bg-default", "hover:brightness-150"],
+      class: ["bg-default"],
     },
     {
       variant: "default",
@@ -48,8 +53,8 @@ export const button = tv({
     },
     {
       variant: "default",
-      color: "error",
-      class: ["bg-error", "text-error-foreground", "hover:bg-error-600"],
+      color: "info",
+      class: ["bg-info", "text-success-info", "hover:bg-info-600"],
     },
     {
       variant: "default",
@@ -61,6 +66,53 @@ export const button = tv({
       color: "warning",
       class: ["bg-warning", "text-warning-foreground", "hover:bg-warning-600"],
     },
+    {
+      variant: "default",
+      color: "error",
+      class: ["bg-error", "text-error-foreground", "hover:bg-error-600"],
+    },
+    {
+      variant: "default",
+      color: "accent",
+      class: ["bg-accent", "text-accent-foreground", "hover:bg-accent-600"],
+    },
+    // light
+    {
+      variant: "light",
+      color: "default",
+      class: ["bg-default/20", "text-foreground", "hover:bg-default/50"],
+    },
+    {
+      variant: "light",
+      color: "primary",
+      class: ["bg-primary/20", "text-primary", "hover:bg-primary/50"],
+    },
+    {
+      variant: "light",
+      color: "info",
+      class: ["bg-info/20", "text-info", "hover:bg-info/50"],
+    },
+    {
+      variant: "light",
+      color: "success",
+      class: ["bg-success/20", "text-success", "hover:bg-success/50"],
+    },
+    {
+      variant: "light",
+      color: "warning",
+      class: ["bg-warning/20", "text-warning", "hover:bg-warning/50"],
+    },
+    {
+      variant: "light",
+      color: "error",
+      class: ["bg-error/20", "text-error", "hover:bg-error/50"],
+    },
+    {
+      variant: "light",
+      color: "accent",
+      class: ["bg-accent/20", "accent-error", "hover:bg-accent/50"],
+    },
+    // outlined
     {
       variant: "outlined",
       color: "default",
@@ -76,10 +128,10 @@ export const button = tv({
     },
     {
       variant: "outlined",
-      color: "error",
+      color: "info",
       class: [
-        "border-error text-error",
-        "hover:border-error-600 hover:text-error-600",
+        "border-info text-info",
+        "hover:border-info-600 hover:text-info-600",
       ],
     },
     {
@@ -99,29 +151,56 @@ export const button = tv({
       ],
     },
     {
+      variant: "outlined",
+      color: "error",
+      class: [
+        "border-error text-error",
+        "hover:border-error-600 hover:text-error-600",
+      ],
+    },
+    {
+      variant: "outlined",
+      color: "accent",
+      class: [
+        "border-accent text-accent",
+        "hover:border-accent-600 hover:text-accent-600",
+      ],
+    },
+    // ghost
+    {
       variant: "ghost",
       color: "default",
-      class: "",
+      class: "hover:bg-default",
     },
     {
       variant: "ghost",
       color: "primary",
-      class: "text-primary",
+      class: "text-primary hover:bg-primary/10",
     },
     {
       variant: "ghost",
-      color: "error",
-      class: "text-error",
+      color: "info",
+      class: "text-info hover:bg-info/10",
     },
     {
       variant: "ghost",
       color: "success",
-      class: "text-success",
+      class: "text-success hover:bg-success/10",
     },
     {
       variant: "ghost",
       color: "warning",
-      class: "text-warning",
+      class: "text-warning hover:bg-warning/10",
+    },
+    {
+      variant: "ghost",
+      color: "error",
+      class: "text-error hover:bg-error/10",
+    },
+    {
+      variant: "ghost",
+      color: "accent",
+      class: "text-accent hover:bg-accent/10",
     },
   ],
   defaultVariants: {

@@ -52,7 +52,7 @@ const config: Config = {
         light: {
           background: colors.white,
           foreground: colors.black,
-          primary: colorize(colors.emerald),
+          primary: colorize(colors.amber),
           secondary: colors.gray[500],
           muted: colors.gray[400],
           accent: colorize(colors.cyan),
@@ -68,7 +68,7 @@ const config: Config = {
         dark: {
           background: colors.gray[950],
           foreground: colors.white,
-          primary: colorize(colors.emerald),
+          primary: colorize(colors.amber),
           secondary: colors.gray[400],
           muted: colors.gray[700],
           accent: colorize(colors.cyan),
@@ -84,7 +84,7 @@ const config: Config = {
       },
     }),
     resetCSS({
-      html: "bg-background",
+      html: "bg-background antialiased",
       "*": "scrollbar scrollbar-thumb-default scrollbar-thumb-rounded scrollbar-track-rounded scrollbar-track-transparent",
     }),
   ],

@@ -14,7 +14,7 @@ export default function () {
       {/* Theme */}
       <Button
         leftIcon={<LuMoon />}
-        className="fixed bottom-4 ring-4"
+        className="fixed bottom-4 right-4"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       />
     </div>
