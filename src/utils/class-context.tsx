@@ -1,4 +1,5 @@
 "use client"
+import { SlotsClasses } from "@/types"
 import {
   createContext,
   forwardRef,
@@ -19,17 +20,27 @@ export function createClassContext<
   StylesFunction extends Recipe,
   Slot extends keyof ReturnType<StylesFunction>,
 >(createStyles: StylesFunction) {
-  const StyleContext = createContext<ReturnType<typeof createStyles> | null>(
-    null,
-  )
+  const StyleContext = createContext<{
+    variants: ReturnType<StylesFunction>
+    // @ts-expect-error force slot type
+    classes: SlotsClasses<Slot>["classNames"] | null
+  } | null>(null)
 
   function withClassProvider<C extends ElementType>(Component: C, slot?: Slot) {
     const Comp = forwardRef(
-      (props: ComponentProps<C> & VariantProps<StylesFunction>, ref) => {
-        const styles = createStyles(props)
-        const variantClassNames = styles[slot ?? ""]?.()
+      (
+        props: ComponentProps<C> &
+          VariantProps<StylesFunction> &
+          // @ts-expect-error force slot type
+          SlotsClasses<Slot>,
+        ref,
+      ) => {
+        const variants = createStyles(props)
+        const variantClassNames = variants[slot ?? ""]?.()
         return (
-          <StyleContext.Provider value={styles}>
+          <StyleContext.Provider
+            value={{ variants, classes: props.classNames }}
+          >
             <Component
               ref={ref}
               {...props}
@@ -48,8 +59,10 @@ export function createClassContext<
     type ComponentPropsWithVariants = ComponentProps<C>
 
     const Comp = forwardRef((props: ComponentPropsWithVariants, ref) => {
-      const slotRecipe = useContext(StyleContext)
-      const variantClassNames = slotRecipe?.[slot ?? ""]?.()
+      const recipe = useContext(StyleContext)
+      const variantClassNames = recipe?.variants?.[slot ?? ""]?.(
+        slot && recipe?.classes ? { class: recipe.classes[slot] } : undefined,
+      )
 
       return (
         <Component
