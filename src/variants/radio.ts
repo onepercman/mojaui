@@ -1,4 +1,4 @@
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const radio = tv({
   base: "input-radio",
@@ -13,7 +13,3 @@ export const radio = tv({
     size: "md",
   },
 })
-
-export type RadioVariantProps = VariantProps<typeof radio>
-export type RadioReturnType = ReturnType<typeof radio>
-export type RadioSlots = keyof RadioReturnType
