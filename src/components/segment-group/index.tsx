@@ -1,8 +1,19 @@
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardRefWithAsProps, ForwardedRefComponent, ReactTag } from "@/types"
+import {
+  ComposedTVProps,
+  ForwardRefWithAsProps,
+  ForwardedRefComponent,
+  ReactTag,
+} from "@/types"
+import { segmentGroup } from "@/variants/segment-group"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { SegmentGroupProps } from "./segment-group"
+
+export interface SegmentGroupProps
+  extends Ark.SegmentGroupRootProps,
+    ComposedTVProps<typeof segmentGroup> {
+  items?: Ark.SegmentGroupItemProps[]
+}
 
 interface SegmentGroup extends ForwardedRefComponent {
   <As extends ReactTag>(
@@ -65,5 +76,3 @@ export const SegmentGroup = _constructor(function (
 })
 
 SegmentGroup.displayName = "SegmentGroup"
-
-export * from "./segment-group"

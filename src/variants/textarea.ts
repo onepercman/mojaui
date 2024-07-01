@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import { TextareaAutosizeProps } from "react-textarea-autosize"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const textarea = tv({
   base: "flex flex-col gap-1 group",
@@ -44,29 +42,3 @@ export const textarea = tv({
     variant: "filled",
   },
 })
-
-export type TextareaVariantProps = VariantProps<typeof textarea>
-export type TextareaReturnType = ReturnType<typeof textarea>
-export type TextareaSlots = keyof TextareaReturnType
-export type TextareaSlotsClasses = SlotsClasses<TextareaSlots>
-
-export interface TextareaProps<AutoSize extends boolean = true>
-  extends Omit<
-      React.HTMLAttributes<HTMLTextAreaElement>,
-      "prefix" | "suffix" | "size"
-    >,
-    TextareaVariantProps,
-    TextareaSlotsClasses {
-  autoSize?: AutoSize
-  label?: React.ReactNode
-  required?: boolean
-  prefix?: React.ReactNode | React.ReactElement
-  suffix?: React.ReactNode | React.ReactElement
-  addonBefore?: React.ReactNode | React.ReactElement
-  addonAfter?: React.ReactNode | React.ReactElement
-  invalid?: boolean
-  invalidMessage?: React.ReactNode
-  clearable?: boolean
-  transform?(value: string): string
-  autoSizeOptions?: AutoSize extends true ? TextareaAutosizeProps : undefined
-}

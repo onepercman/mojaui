@@ -1,8 +1,20 @@
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardRefWithAsProps, ForwardedRefComponent, ReactTag } from "@/types"
+import {
+  ComposedTVProps,
+  ForwardRefWithAsProps,
+  ForwardedRefComponent,
+  ReactTag,
+} from "@/types"
+import { tabs } from "@/variants/tabs"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { TabsProps } from "./tabs"
+
+export interface TabsProps
+  extends Ark.TabsRootProps,
+    ComposedTVProps<typeof tabs> {
+  tabList?: Ark.TabTriggerProps[]
+  children?: React.ReactNode | React.ReactNode[]
+}
 
 interface Tabs extends ForwardedRefComponent {
   <As extends ReactTag>(
@@ -83,4 +95,3 @@ export const Tabs = _constructor(function (
 })
 
 Tabs.displayName = "Tabs"
-export * from "./tabs"

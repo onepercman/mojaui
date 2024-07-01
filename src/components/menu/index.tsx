@@ -1,9 +1,27 @@
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardedRefComponent } from "@/types"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
+import { menu } from "@/variants/menu"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import { LuChevronRight } from "react-icons/lu"
-import { MenuOption, MenuProps } from "./menu"
+
+export interface MenuOptionProps extends Omit<Ark.MenuItemProps, "children"> {
+  label?: React.ReactNode
+  children?: MenuOptionProps[]
+  items?: MenuOptionProps[]
+}
+
+export type MenuOption<IsSeparator extends boolean> = IsSeparator extends true
+  ? Ark.Menu.SeparatorProps & { isSeparator: IsSeparator }
+  : MenuOptionProps
+
+export interface MenuProps
+  extends Ark.MenuRootProps,
+    ComposedTVProps<typeof menu> {
+  readonly options?: Array<MenuOption<true> | MenuOption<false>>
+  indent?: number
+  className?: string
+}
 
 export interface Menu extends ForwardedRefComponent {
   (props: MenuProps): React.ReactElement | null
@@ -120,5 +138,3 @@ export const Menu = _constructor(function (
 })
 
 Menu.displayName = "Menu"
-
-export * from "./menu"

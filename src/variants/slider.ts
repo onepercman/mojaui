@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const slider = tv({
   base: "flex flex-col gap-1",
@@ -37,16 +35,3 @@ export const slider = tv({
     size: "md",
   },
 })
-
-export type SliderVariantProps = VariantProps<typeof slider>
-export type SliderReturnType = ReturnType<typeof slider>
-export type SliderSlots = keyof SliderReturnType
-export type SliderSlotsClasses = SlotsClasses<SliderSlots>
-
-export interface SliderProps
-  extends Ark.SliderRootProps,
-    SliderVariantProps,
-    SliderSlotsClasses {
-  label?: React.ReactNode
-  markers?: Ark.SliderMarkerProps[]
-}

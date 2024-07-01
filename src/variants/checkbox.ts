@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const checkbox = tv({
   base: "inline-flex items-center gap-2 cursor-pointer",
@@ -36,15 +34,3 @@ export const checkbox = tv({
     color: "primary",
   },
 })
-
-export type CheckboxVariantProps = VariantProps<typeof checkbox>
-export type CheckboxReturnType = ReturnType<typeof checkbox>
-export type CheckboxSlots = keyof CheckboxReturnType
-export type CheckboxSlotsClasses = SlotsClasses<CheckboxSlots>
-
-export interface CheckboxProps
-  extends Ark.CheckboxRootProps,
-    CheckboxVariantProps,
-    CheckboxSlotsClasses {
-  indeterminate?: boolean
-}

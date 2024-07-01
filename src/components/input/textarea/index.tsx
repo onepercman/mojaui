@@ -1,10 +1,33 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
 import { useComposedRefs } from "@/utils/ref"
+import { textarea } from "@/variants/textarea"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import { LuX } from "react-icons/lu"
-import TextAreaAutoSize from "react-textarea-autosize"
-import { TextareaProps } from "./textarea"
+import TextAreaAutoSize, {
+  TextareaAutosizeProps,
+} from "react-textarea-autosize"
+
+export interface TextareaProps<AutoSize extends boolean = true>
+  extends Omit<
+      React.HTMLAttributes<HTMLTextAreaElement>,
+      "prefix" | "suffix" | "size"
+    >,
+    ComposedTVProps<typeof textarea> {
+  autoSize?: AutoSize
+  label?: React.ReactNode
+  required?: boolean
+  prefix?: React.ReactNode | React.ReactElement
+  suffix?: React.ReactNode | React.ReactElement
+  addonBefore?: React.ReactNode | React.ReactElement
+  addonAfter?: React.ReactNode | React.ReactElement
+  invalid?: boolean
+  invalidMessage?: React.ReactNode
+  clearable?: boolean
+  transform?(value: string): string
+  autoSizeOptions?: AutoSize extends true ? TextareaAutosizeProps : undefined
+}
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
@@ -166,5 +189,3 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 )
 
 Textarea.displayName = "Textarea"
-
-export * from "./textarea"

@@ -1,7 +1,14 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
+import { popover } from "@/variants/popover"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { PopoverProps } from "./popover"
+export interface PopoverProps
+  extends Ark.PopoverRootProps,
+    ComposedTVProps<typeof popover> {
+  className?: string
+  content?: React.ReactNode
+}
 
 export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function (
   { children, content, size, className, classNames, ...props },
@@ -36,5 +43,3 @@ export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function (
     </Ark.Popover.Root>
   )
 })
-
-export * from "./popover"

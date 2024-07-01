@@ -1,5 +1,4 @@
-import { SlotsClasses } from "@/types"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const input = tv({
   base: "flex flex-col gap-1 group w-fit",
@@ -36,30 +35,3 @@ export const input = tv({
     variant: "filled",
   },
 })
-
-export type InputVariantProps = VariantProps<typeof input>
-export type InputReturnType = ReturnType<typeof input>
-export type InputSlots = keyof InputReturnType
-export type InputSlotsClasses = SlotsClasses<InputSlots>
-
-export interface InputFieldProps {
-  label?: React.ReactNode
-  required?: boolean
-  prefix?: React.ReactNode | React.ReactElement
-  suffix?: React.ReactNode | React.ReactElement
-  addonBefore?: React.ReactNode | React.ReactElement
-  addonAfter?: React.ReactNode | React.ReactElement
-  invalid?: boolean
-  invalidMessage?: React.ReactNode
-  clearable?: boolean
-  transform?(value: string): string
-}
-
-export interface InputProps
-  extends Omit<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      "prefix" | "suffix" | "size"
-    >,
-    InputVariantProps,
-    InputSlotsClasses,
-    InputFieldProps {}

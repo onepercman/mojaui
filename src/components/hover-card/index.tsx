@@ -1,7 +1,15 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
+import { hoverCard } from "@/variants/hover-card"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { HoverCardProps } from "./hover-card"
+
+export interface HoverCardProps
+  extends Ark.HoverCardRootProps,
+    ComposedTVProps<typeof hoverCard> {
+  className?: string
+  content?: React.ReactNode
+}
 
 export const HoverCard = React.forwardRef<HTMLDivElement, HoverCardProps>(
   function ({ children, content, size, className, classNames, ...props }, ref) {
@@ -39,5 +47,3 @@ export const HoverCard = React.forwardRef<HTMLDivElement, HoverCardProps>(
 )
 
 HoverCard.displayName = "HoverCard"
-
-export * from "./hover-card"

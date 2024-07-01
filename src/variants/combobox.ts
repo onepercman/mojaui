@@ -1,7 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
-import { InputVariantProps } from "../input/input"
+import { tv } from "tailwind-variants"
 
 export const combobox = tv({
   base: "flex flex-col gap-1 w-fit",
@@ -36,31 +33,3 @@ export const combobox = tv({
     size: "md",
   },
 })
-
-export type ComboboxVariantProps = VariantProps<typeof combobox>
-export type ComboboxReturnType = ReturnType<typeof combobox>
-export type ComboboxSlots = keyof ComboboxReturnType
-export type ComboboxSlotsClasses = SlotsClasses<ComboboxSlots>
-
-export interface ComboboxOptionProps<Value> {
-  label?: React.ReactNode
-  children?: ComboboxOptionProps<Value>[]
-  offset?: number
-  value: Value
-}
-
-export interface ComboboxProps<Value>
-  extends Omit<
-      Ark.ComboboxRootProps<ComboboxOptionProps<Value>>,
-      "items" | "color"
-    >,
-    InputVariantProps,
-    ComboboxSlotsClasses {
-  label?: React.ReactNode
-  readonly options?: ComboboxOptionProps<Value>[]
-  placeholder?: string
-  allowClear?: boolean
-  invalid?: boolean
-  invalidMessage?: React.ReactNode
-  indent?: number
-}

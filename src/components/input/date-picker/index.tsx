@@ -1,10 +1,18 @@
-import { Button, Input } from "@/components"
+import { Button, Input, InputFieldProps } from "@/components"
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardedRefComponent } from "@/types"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
+import { datePicker } from "@/variants/date-picker"
+import { input } from "@/variants/input"
 import * as Ark from "@ark-ui/react"
 import React, { Fragment } from "react"
 import { LuCalendar, LuChevronLeft, LuChevronRight } from "react-icons/lu"
-import { DatePickerProps } from "./date-picker"
+import { VariantProps } from "tailwind-variants"
+
+export interface DatePickerProps
+  extends Ark.DatePickerRootProps,
+    Omit<InputFieldProps, "prefix">,
+    VariantProps<typeof input>,
+    ComposedTVProps<typeof datePicker> {}
 
 export interface DatePicker extends ForwardedRefComponent {
   (props: DatePickerProps): React.ReactElement | null
@@ -231,5 +239,3 @@ export const DatePicker = _constructor(function (
 })
 
 DatePicker.displayName = "DatePicker"
-
-export * from "./date-picker"

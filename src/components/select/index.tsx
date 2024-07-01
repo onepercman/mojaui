@@ -1,10 +1,36 @@
 import { Button } from "@/components"
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardedRefComponent } from "@/types"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
+import { button } from "@/variants/button"
+import { select } from "@/variants/select"
 import * as Ark from "@ark-ui/react"
 import React, { Fragment } from "react"
 import { LuCheck, LuChevronDown, LuX } from "react-icons/lu"
-import { SelectOptionProps, SelectProps } from "./select"
+
+export interface SelectOptionProps<Value> {
+  label?: React.ReactNode
+  children?: SelectOptionProps<Value>[]
+  offset?: number
+  value: Value
+}
+
+export interface SelectProps<Value>
+  extends Omit<
+      Ark.SelectRootProps<SelectOptionProps<Value>>,
+      "items" | "value" | "defaultValue" | "color"
+    >,
+    ComposedTVProps<typeof select>,
+    ComposedTVProps<typeof button> {
+  value?: Value[]
+  defaultValue?: Value[]
+  label?: React.ReactNode
+  readonly options?: SelectOptionProps<Value>[]
+  placeholder?: string
+  allowClear?: boolean
+  invalid?: boolean
+  invalidMessage?: React.ReactNode
+  indent?: number
+}
 
 export interface Select extends ForwardedRefComponent {
   <Value>(props: SelectProps<Value>): React.ReactElement | null
@@ -164,5 +190,3 @@ export const Select = _constructor(function (
     </Ark.Select.Root>
   )
 })
-
-export * from "./select"

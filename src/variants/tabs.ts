@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const tabs = tv({
   base: "",
@@ -51,16 +49,3 @@ export const tabs = tv({
     size: "md",
   },
 })
-
-export type TabsVariantProps = VariantProps<typeof tabs>
-export type TabsReturnType = ReturnType<typeof tabs>
-export type TabsSlots = keyof TabsReturnType
-export type TabsSlotsClasses = SlotsClasses<TabsSlots>
-
-export interface TabsProps
-  extends Ark.TabsRootProps,
-    TabsVariantProps,
-    TabsSlotsClasses {
-  tabList?: Ark.TabTriggerProps[]
-  children?: React.ReactNode | React.ReactNode[]
-}

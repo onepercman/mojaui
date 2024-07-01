@@ -1,11 +1,33 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
 import { cn } from "@/utils"
 import { useComposedRefs } from "@/utils/ref"
+import { input } from "@/variants/input"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import { HiEye, HiEyeOff } from "react-icons/hi"
 import { LuX } from "react-icons/lu"
-import { InputProps } from "./input"
+
+export interface InputFieldProps {
+  label?: React.ReactNode
+  required?: boolean
+  prefix?: React.ReactNode | React.ReactElement
+  suffix?: React.ReactNode | React.ReactElement
+  addonBefore?: React.ReactNode | React.ReactElement
+  addonAfter?: React.ReactNode | React.ReactElement
+  invalid?: boolean
+  invalidMessage?: React.ReactNode
+  clearable?: boolean
+  transform?(value: string): string
+}
+
+export interface InputProps
+  extends Omit<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      "prefix" | "suffix" | "size"
+    >,
+    InputFieldProps,
+    ComposedTVProps<typeof input> {}
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
@@ -193,5 +215,3 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 )
 
 Input.displayName = "Input"
-
-export * from "./input"

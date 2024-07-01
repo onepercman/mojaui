@@ -1,8 +1,22 @@
 import { Spinner } from "@/components"
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
 import { cn } from "@/utils"
+import { button } from "@/variants/button"
 import React from "react"
-import { ButtonProps } from "./button"
+
+export interface ButtonBaseProps {
+  loading?: boolean
+  loadingText?: string
+  leftIcon?: React.ReactElement
+  rightIcon?: React.ReactElement
+  loadingVariant?: "default" | "transparent"
+}
+
+export interface ButtonProps
+  extends ButtonBaseProps,
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color">,
+    ComposedTVProps<typeof button> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function (
   {
@@ -111,5 +125,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function (
 Button.displayName = "Button"
 
 export { Button }
-
-export * from "./button"

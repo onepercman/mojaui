@@ -1,7 +1,15 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
+import { tooltip } from "@/variants/tooltip"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { TooltipProps } from "./tooltip"
+
+export interface TooltipProps
+  extends Ark.TooltipRootProps,
+    ComposedTVProps<typeof tooltip> {
+  className?: string
+  content?: React.ReactNode
+}
 
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(function (
   { children, content, size, className, classNames, ...props },
@@ -38,5 +46,3 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(function (
 })
 
 Tooltip.displayName = "Tooltip"
-
-export * from "./tooltip"

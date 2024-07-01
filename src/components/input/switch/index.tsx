@@ -1,7 +1,14 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
+import { switchVariants } from "@/variants/switch"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { SwitchProps } from "./switch"
+
+export interface SwitchProps
+  extends Ark.SwitchRootProps,
+    ComposedTVProps<typeof switchVariants> {
+  indeterminate?: boolean
+}
 
 export const Switch = React.forwardRef<HTMLLabelElement, SwitchProps>(function (
   { size, children, placement, indeterminate, className, classNames, ...props },
@@ -32,5 +39,3 @@ export const Switch = React.forwardRef<HTMLLabelElement, SwitchProps>(function (
 })
 
 Switch.displayName = "Switch"
-
-export * from "./switch"

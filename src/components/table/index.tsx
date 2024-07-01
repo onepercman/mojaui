@@ -1,10 +1,51 @@
-import { Input, Pagination, Spinner } from "@/components"
+import { Input, Pagination, PaginationProps, Spinner } from "@/components"
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardRefWithAsProps, ForwardedRefComponent } from "@/types"
+import {
+  ComposedTVProps,
+  ForwardRefWithAsProps,
+  ForwardedRefComponent,
+} from "@/types"
 import { cn } from "@/utils"
+import { table } from "@/variants/table"
 import React, { useEffect, useState } from "react"
 import { LuArrowDown } from "react-icons/lu"
-import { TableProps, TableRow, TableSort } from "./table"
+
+export interface TableRow extends Readonly<Record<string, unknown>> {
+  key?: string
+}
+
+export interface TableSort {
+  column: string
+  direction: "asc" | "desc"
+}
+
+export interface TableColumnProps<Row extends TableRow>
+  extends React.ThHTMLAttributes<HTMLTableCellElement> {
+  label: React.ReactNode
+  key: string
+  dataIndex: keyof Row
+  sort: boolean
+  headAlign?: React.ThHTMLAttributes<HTMLTableCellElement>["align"]
+  dataAlign?: React.ThHTMLAttributes<HTMLTableCellElement>["align"]
+  enableSort?: boolean
+  render(value: any, row: Row, index: number): React.ReactNode
+}
+
+export interface TableProps<Row extends TableRow>
+  extends React.HTMLAttributes<HTMLTableElement>,
+    ComposedTVProps<typeof table> {
+  columns?: readonly Partial<TableColumnProps<Row>>[]
+  data?: readonly Row[]
+  loading?: boolean
+  className?: string
+  pagination?: PaginationProps
+  defaultSelectedKeys?: any[]
+  selectedKeys?: any[]
+  sort?: TableSort
+  onSort?(sort?: TableSort): void
+  extractKey?(row: Row): any
+  onSelectRow?(row: Row[]): void
+}
 
 interface Table extends ForwardedRefComponent {
   <Row extends TableRow>(
@@ -267,5 +308,3 @@ export const Table = _constructor(function (
 })
 
 Table.displayName = "Table"
-
-export * from "./table"

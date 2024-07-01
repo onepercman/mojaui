@@ -1,11 +1,21 @@
 import { Button, ButtonProps } from "@/components"
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardedRefComponent } from "@/types"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
+import { dialog } from "@/variants/dialog"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { LuX } from "react-icons/lu"
-import { DialogProps } from "./dialog"
+
+export interface DialogProps
+  extends Omit<Ark.DialogRootProps, "children">,
+    ComposedTVProps<typeof dialog> {
+  trigger?: React.ReactNode
+  title?: React.ReactNode
+  children?: React.ReactNode | Ark.DialogContextProps["children"]
+  className?: string
+  closeTrigger?: boolean | React.ReactNode
+}
 
 export interface Dialog extends ForwardedRefComponent {
   (
@@ -195,5 +205,3 @@ Dialog.open = openDialog
 Dialog.confirm = openConfirmDialog
 
 Dialog.displayName = "Dialog"
-
-export * from "./dialog"

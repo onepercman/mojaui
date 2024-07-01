@@ -1,8 +1,15 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
+import { checkbox } from "@/variants/checkbox"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import { LuCheck, LuMinus } from "react-icons/lu"
-import { CheckboxProps } from "./checkbox"
+
+export interface CheckboxProps
+  extends Ark.CheckboxRootProps,
+    ComposedTVProps<typeof checkbox> {
+  indeterminate?: boolean
+}
 
 export const Checkbox = React.forwardRef<HTMLLabelElement, CheckboxProps>(
   function (
@@ -49,5 +56,3 @@ export const Checkbox = React.forwardRef<HTMLLabelElement, CheckboxProps>(
 )
 
 Checkbox.displayName = "Checkbox"
-
-export * from "./checkbox"

@@ -1,7 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
-import { ButtonVariantProps } from "../button"
+import { tv } from "tailwind-variants"
 
 export const select = tv({
   base: "flex flex-col gap-1 w-fit",
@@ -42,33 +39,3 @@ export const select = tv({
     size: "md",
   },
 })
-
-export type SelectVariantProps = VariantProps<typeof select>
-export type SelectReturnType = ReturnType<typeof select>
-export type SelectSlots = keyof SelectReturnType
-export type SelectSlotsClasses = SlotsClasses<SelectSlots>
-
-export interface SelectOptionProps<Value> {
-  label?: React.ReactNode
-  children?: SelectOptionProps<Value>[]
-  offset?: number
-  value: Value
-}
-
-export interface SelectProps<Value>
-  extends Omit<
-      Ark.SelectRootProps<SelectOptionProps<Value>>,
-      "items" | "value" | "defaultValue" | "color"
-    >,
-    ButtonVariantProps,
-    SelectSlotsClasses {
-  value?: Value[]
-  defaultValue?: Value[]
-  label?: React.ReactNode
-  readonly options?: SelectOptionProps<Value>[]
-  placeholder?: string
-  allowClear?: boolean
-  invalid?: boolean
-  invalidMessage?: React.ReactNode
-  indent?: number
-}

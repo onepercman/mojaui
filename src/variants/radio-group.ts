@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const radioGroup = tv({
   base: "flex flex-col gap-2",
@@ -31,22 +29,3 @@ export const radioGroup = tv({
     size: "md",
   },
 })
-
-export type RadioGroupVariantProps = VariantProps<typeof radioGroup>
-export type RadioGroupReturnType = ReturnType<typeof radioGroup>
-export type RadioGroupSlots = keyof RadioGroupReturnType
-export type RadioGroupSlotsClasses = SlotsClasses<RadioGroupSlots>
-
-export interface RadioGroupOption extends Ark.RadioGroup.ItemProps {
-  label?: React.ReactNode
-}
-
-export interface RadioGroupProps
-  extends Ark.RadioGroupRootProps,
-    RadioGroupVariantProps,
-    RadioGroupSlotsClasses {
-  label?: React.ReactNode
-  options?: RadioGroupOption[]
-  invalid?: boolean
-  invalidMessage?: React.ReactNode
-}

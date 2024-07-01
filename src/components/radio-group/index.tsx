@@ -1,8 +1,21 @@
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardedRefComponent } from "@/types"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
+import { radioGroup } from "@/variants/radio-group"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { RadioGroupProps } from "./radio-group"
+
+export interface RadioGroupOption extends Ark.RadioGroup.ItemProps {
+  label?: React.ReactNode
+}
+
+export interface RadioGroupProps
+  extends Ark.RadioGroupRootProps,
+    ComposedTVProps<typeof radioGroup> {
+  label?: React.ReactNode
+  options?: RadioGroupOption[]
+  invalid?: boolean
+  invalidMessage?: React.ReactNode
+}
 
 interface RadioGroup extends ForwardedRefComponent {
   (props: RadioGroupProps): React.ReactElement | null
@@ -75,5 +88,3 @@ export const RadioGroup = _constructor(function (
 })
 
 RadioGroup.displayName = "RadioGroup"
-
-export * from "./radio-group"

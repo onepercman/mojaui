@@ -1,7 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { ReactNode } from "react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const dialog = tv({
   base: [
@@ -46,19 +43,3 @@ export const dialog = tv({
     placement: "topCenter",
   },
 })
-
-export type DialogVariantProps = VariantProps<typeof dialog>
-export type DialogReturnType = ReturnType<typeof dialog>
-export type DialogSlots = keyof DialogReturnType
-export type DialogSlotsClasses = SlotsClasses<DialogSlots>
-
-export interface DialogProps
-  extends Omit<Ark.DialogRootProps, "children">,
-    DialogVariantProps,
-    DialogSlotsClasses {
-  trigger?: React.ReactNode
-  title?: React.ReactNode
-  children?: React.ReactNode | Ark.DialogContextProps["children"]
-  className?: string
-  closeTrigger?: boolean | ReactNode
-}

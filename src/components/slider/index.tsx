@@ -1,8 +1,20 @@
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardRefWithAsProps, ForwardedRefComponent, ReactTag } from "@/types"
+import {
+  ComposedTVProps,
+  ForwardRefWithAsProps,
+  ForwardedRefComponent,
+  ReactTag,
+} from "@/types"
+import { slider } from "@/variants/slider"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { SliderProps } from "./slider"
+
+export interface SliderProps
+  extends Ark.SliderRootProps,
+    ComposedTVProps<typeof slider> {
+  label?: React.ReactNode
+  markers?: Ark.SliderMarkerProps[]
+}
 
 interface Slider extends ForwardedRefComponent {
   <As extends ReactTag>(
@@ -77,5 +89,3 @@ export const Slider = _constructor(function (
 })
 
 Slider.displayName = "Slider"
-
-export * from "./slider"

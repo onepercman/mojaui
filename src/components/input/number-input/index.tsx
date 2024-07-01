@@ -1,14 +1,15 @@
 import { Button, Input } from "@/components"
-import { ForwardedRefComponent } from "@/types"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
+import { input } from "@/variants/input"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import { LuMinus, LuPlus } from "react-icons/lu"
-import { InputFieldProps, InputVariantProps } from "../input"
+import { InputFieldProps } from "../input"
 
 export interface NumberInputProps
   extends Ark.NumberInputRootProps,
     Omit<InputFieldProps, "prefix">,
-    InputVariantProps {}
+    ComposedTVProps<typeof input> {}
 
 export interface NumberInput extends ForwardedRefComponent {
   (props: NumberInputProps): React.ReactElement | null

@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const segmentGroup = tv({
   base: "inline-flex items-center gap-2 relative",
@@ -48,15 +46,3 @@ export const segmentGroup = tv({
     size: "md",
   },
 })
-
-export type SegmentGroupVariantProps = VariantProps<typeof segmentGroup>
-export type SegmentGroupReturnType = ReturnType<typeof segmentGroup>
-export type SegmentGroupSlots = keyof SegmentGroupReturnType
-export type SegmentGroupSlotsClasses = SlotsClasses<SegmentGroupSlots>
-
-export interface SegmentGroupProps
-  extends Ark.SegmentGroupRootProps,
-    SegmentGroupVariantProps,
-    SegmentGroupSlotsClasses {
-  items?: Ark.SegmentGroupItemProps[]
-}

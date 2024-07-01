@@ -1,10 +1,17 @@
-import { Button } from "@/components"
-import { ForwardedRefComponent } from "@/types"
+import { Button, ButtonProps } from "@/components"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
 import { cn } from "@/utils"
+import { button } from "@/variants/button"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
-import { PaginationProps } from "./pagination"
+
+export interface PaginationProps
+  extends Omit<Ark.PaginationRootProps, "color">,
+    ComposedTVProps<typeof button> {
+  activeProps?: ButtonProps
+  inactiveProps?: ButtonProps
+}
 
 interface Pagination extends ForwardedRefComponent {
   (props: PaginationProps): React.ReactElement | null
@@ -93,5 +100,3 @@ export const Pagination = _constructor(function (
 })
 
 Pagination.displayName = "Pagination"
-
-export * from "./pagination"

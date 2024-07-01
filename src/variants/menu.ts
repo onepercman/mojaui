@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const menu = tv({
   slots: {
@@ -32,27 +30,3 @@ export const menu = tv({
     size: "md",
   },
 })
-
-export type MenuVariantProps = VariantProps<typeof menu>
-export type MenuReturnType = ReturnType<typeof menu>
-export type MenuSlots = keyof MenuReturnType
-export type MenuSlotsClasses = SlotsClasses<MenuSlots>
-
-export interface MenuOptionProps extends Omit<Ark.MenuItemProps, "children"> {
-  label?: React.ReactNode
-  children?: MenuOptionProps[]
-  items?: MenuOptionProps[]
-}
-
-export type MenuOption<IsSeparator extends boolean> = IsSeparator extends true
-  ? Ark.Menu.SeparatorProps & { isSeparator: IsSeparator }
-  : MenuOptionProps
-
-export interface MenuProps
-  extends Ark.MenuRootProps,
-    MenuVariantProps,
-    MenuSlotsClasses {
-  readonly options?: Array<MenuOption<true> | MenuOption<false>>
-  indent?: number
-  className?: string
-}

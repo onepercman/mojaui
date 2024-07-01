@@ -1,4 +1,4 @@
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const button = tv({
   base: [
@@ -210,20 +210,3 @@ export const button = tv({
     shape: "normal",
   },
 })
-
-export type ButtonVariantProps = VariantProps<typeof button>
-export type ButtonReturnType = ReturnType<typeof button>
-export type ButtonSlots = keyof ButtonReturnType
-
-export interface ButtonBaseProps {
-  loading?: boolean
-  loadingText?: string
-  leftIcon?: React.ReactElement
-  rightIcon?: React.ReactElement
-  loadingVariant?: "default" | "transparent"
-}
-
-export interface ButtonProps
-  extends ButtonBaseProps,
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color">,
-    ButtonVariantProps {}

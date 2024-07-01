@@ -1,10 +1,36 @@
-import { Button, Input } from "@/components"
+import { Button } from "@/components"
 import { useVariants } from "@/providers/variants-provider"
-import { ForwardedRefComponent } from "@/types"
+import { ComposedTVProps, ForwardedRefComponent } from "@/types"
+import { combobox } from "@/variants/combobox"
+import { input } from "@/variants/input"
 import * as Ark from "@ark-ui/react"
 import React from "react"
 import { LuCheck, LuChevronsUpDown, LuX } from "react-icons/lu"
-import { ComboboxOptionProps, ComboboxProps } from "./combobox"
+import { VariantProps } from "tailwind-variants"
+import { Input } from "../input"
+
+export interface ComboboxOptionProps<Value> {
+  label?: React.ReactNode
+  children?: ComboboxOptionProps<Value>[]
+  offset?: number
+  value: Value
+}
+
+export interface ComboboxProps<Value>
+  extends Omit<
+      Ark.ComboboxRootProps<ComboboxOptionProps<Value>>,
+      "items" | "color"
+    >,
+    VariantProps<typeof input>,
+    ComposedTVProps<typeof combobox> {
+  label?: React.ReactNode
+  readonly options?: ComboboxOptionProps<Value>[]
+  placeholder?: string
+  allowClear?: boolean
+  invalid?: boolean
+  invalidMessage?: React.ReactNode
+  indent?: number
+}
 
 export interface Combobox extends ForwardedRefComponent {
   <Value>(props: ComboboxProps<Value>): React.ReactElement | null
@@ -160,5 +186,3 @@ export const Combobox = _constructor(function (
 })
 
 Combobox.displayName = "Combobox"
-
-export * from "./combobox"

@@ -1,7 +1,14 @@
 import { useVariants } from "@/providers/variants-provider"
+import { ComposedTVProps } from "@/types"
+import { avatar } from "@/variants/avatar"
 import * as Ark from "@ark-ui/react"
 import React from "react"
-import { AvatarProps } from "./avatar"
+
+export interface AvatarProps
+  extends Ark.AvatarImageProps,
+    ComposedTVProps<typeof avatar> {
+  fallback?: React.ReactNode
+}
 
 export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function (
   { size, fallback, className, classNames, ...props },
@@ -29,5 +36,3 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function (
 })
 
 Avatar.displayName = "Avatar"
-
-export * from "./avatar"

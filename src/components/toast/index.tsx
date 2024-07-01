@@ -64,5 +64,3 @@ export const ToasterContainer: FC<{
 }
 
 export { createToaster } from "@ark-ui/react"
-
-export * from "./toast"

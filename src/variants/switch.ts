@@ -1,6 +1,4 @@
-import { SlotsClasses } from "@/types"
-import * as Ark from "@ark-ui/react"
-import { VariantProps, tv } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
 export const switchVariants = tv({
   base: "inline-flex items-center gap-2 cursor-pointer",
@@ -56,15 +54,3 @@ export const switchVariants = tv({
     color: "primary",
   },
 })
-
-export type SwitchVariantProps = VariantProps<typeof switchVariants>
-export type SwitchReturnType = ReturnType<typeof switchVariants>
-export type SwitchSlots = keyof SwitchReturnType
-export type SwitchSlotsClasses = SlotsClasses<SwitchSlots>
-
-export interface SwitchProps
-  extends Ark.SwitchRootProps,
-    SwitchVariantProps,
-    SwitchSlotsClasses {
-  indeterminate?: boolean
-}
