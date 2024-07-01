@@ -15,7 +15,7 @@ dependencies:
     specifier: ^0.3.0
     version: 0.3.0(react-dom@18.3.1)(react@18.3.1)
   react:
-    specifier: ^18.2.0
+    specifier: ^18.3.1
     version: 18.3.1
   react-dom:
     specifier: ^18.2.0
@@ -32,6 +32,9 @@ dependencies:
   tailwind-merge:
     specifier: ^2.3.0
     version: 2.3.0
+  tailwind-schemes:
+    specifier: ^1.5.3
+    version: 1.5.3(tailwindcss@3.4.4)
   tailwind-variants:
     specifier: ^0.2.1
     version: 0.2.1(tailwindcss@3.4.4)
@@ -121,9 +124,6 @@ devDependencies:
   storybook-dark-mode:
     specifier: ^4.0.1
     version: 4.0.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
-  tailwind-schemes:
-    specifier: ^1.5.3
-    version: 1.5.3(tailwindcss@3.4.4)
   tailwind-scrollbar:
     specifier: ^3.1.0
     version: 3.1.0(tailwindcss@3.4.4)
@@ -9476,7 +9476,7 @@ packages:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
       tailwindcss: 3.4.4(ts-node@10.9.2)
-    dev: true
+    dev: false
 
   /tailwind-scrollbar@3.1.0(tailwindcss@3.4.4):
     resolution: {integrity: sha512-pmrtDIZeHyu2idTejfV59SbaJyvp1VRjYxAjZBH0jnyrPRo6HL1kD5Glz8VPagasqr6oAx6M05+Tuw429Z8jxg==}
