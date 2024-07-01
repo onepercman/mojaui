@@ -1,5 +1,4 @@
 "use client"
-import { SlotsClasses } from "@/types"
 import {
   createContext,
   forwardRef,
@@ -8,73 +7,73 @@ import {
   type ElementType,
   type ExoticComponent,
 } from "react"
+import { TV, VariantProps } from "tailwind-variants"
 import { cn } from "./cn"
 
-type Recipe = (props: any) => any
-type VariantProps<R extends Recipe> = Parameters<R>[0]
 type ProviderComponentProps<ComponentProps extends object> =
   | ExoticComponent<ComponentProps>
   | ((prop: ComponentProps) => JSX.Element)
 
+type ClassNamesProps<T extends TV> = {
+  classNames?: keyof ReturnType<T>
+}
+
 export function createClassContext<
-  StylesFunction extends Recipe,
-  Slot extends keyof ReturnType<StylesFunction>,
->(createStyles: StylesFunction) {
+  TVFN extends TV,
+  Slot extends keyof ReturnType<TVFN>,
+>(tvFn: TVFN) {
   const StyleContext = createContext<{
-    variants: ReturnType<StylesFunction>
-    // @ts-expect-error force slot type
-    classes: SlotsClasses<Slot>["classNames"] | null
-  } | null>(null)
+    variants: ReturnType<TVFN>
+    classes: ClassNamesProps<TVFN>
+  }>({
+    variants: {} as ReturnType<TVFN>,
+    classes: {},
+  })
 
   function withClassProvider<C extends ElementType>(Component: C, slot?: Slot) {
     const Comp = forwardRef(
       (
-        props: ComponentProps<C> &
-          VariantProps<StylesFunction> &
-          // @ts-expect-error force slot type
-          SlotsClasses<Slot>,
+        props: ComponentProps<C> & VariantProps<TVFN> & ClassNamesProps<TVFN>,
         ref,
       ) => {
-        const variants = createStyles(props)
-        const variantClassNames = variants[slot ?? ""]?.()
+        const className = tvFn(props) as any
+        const variantClassNames = className[slot ?? ""]?.()
         return (
           <StyleContext.Provider
-            value={{ variants, classes: props.classNames }}
+            value={{ variants: className, classes: props.classNames }}
           >
             <Component
               ref={ref}
-              {...props}
               className={cn(variantClassNames, props.className)}
+              {...(props as any)}
             />
           </StyleContext.Provider>
         )
       },
     )
-    // @ts-expect-error JSX.IntrinsicElements do not have a displayName but Function and Class components do
-    Comp.displayName = Component.displayName || Component.name || "Component"
+    Comp.displayName =
+      (Component as any).displayName || (Component as any).name || "Component"
     return Comp
   }
 
   function withClassContext<C extends ElementType>(Component: C, slot?: Slot) {
-    type ComponentPropsWithVariants = ComponentProps<C>
-
-    const Comp = forwardRef((props: ComponentPropsWithVariants, ref) => {
-      const recipe = useContext(StyleContext)
-      const variantClassNames = recipe?.variants?.[slot ?? ""]?.(
-        slot && recipe?.classes ? { class: recipe.classes[slot] } : undefined,
+    const Comp = forwardRef((props: ComponentProps<C>, ref) => {
+      const ctx = useContext(StyleContext) as any
+      const variantClassNames = ctx.variants?.[slot ?? ""]?.(
+        slot && ctx.classes ? { class: ctx.classes[slot] } : undefined,
       )
 
       return (
         <Component
           ref={ref}
-          {...(props as any)}
           className={cn(variantClassNames, props.className)}
+          {...(props as any)}
         />
       )
     })
 
-    // @ts-expect-error JSX.IntrinsicElements do not have a displayName but Function and Class components do
-    Comp.displayName = Component.displayName || Component.name || "Component"
+    Comp.displayName =
+      (Component as any).displayName || (Component as any).name || "Component"
     return Comp
   }
 
@@ -96,18 +95,17 @@ export function mergeProps<T extends Record<string, any>>(
 
 export function styled<ComponentProps extends object>(
   Component: ProviderComponentProps<ComponentProps>,
-  createStyles: (...args: any) => any,
+  tvFn: (...args: any) => any,
 ) {
   const Comp = forwardRef<typeof Component, ComponentProps>((props, ref) => {
-    const classNames = createStyles(props)
+    const classNames = tvFn(props)
 
     const componentProps = mergeProps(props, {
       className: classNames,
-    } as any) // TODO remove variant props from component props
+    } as any)
 
     return <Component {...componentProps} ref={ref} />
   })
-  // @ts-expect-error - it exists
-  Comp.displayName = Component.displayName || Component.name
+  Comp.displayName = (Component as any).displayName || Component.name
   return Comp
 }
